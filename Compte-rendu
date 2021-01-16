@@ -1,0 +1,29 @@
+************************************************************************************************
+******************** lab11: Installation de la chaîne de Cross compilation *********************
+************************************************************************************************
+
+
+Il s'agit dans cette partie d'installer et de configurer une chaine de cross compilation ARM. La
+compilation croisée s'utilise pour construire un compilateur et sa chaine de construction pour une
+machine différente de celle utilisée pour la construction, contrairement à la chaine de compilation
+native utilisée habituellement dans les PCs x86.
+
+Une fois la chaine installée, on peut retrouver le chemin d'accès au cross compilateur avec la commande
+"Dpkg -L gcc-arm-linux-gnueabi". Le résultat est le suivant:  "/usr/bin/arm-linux-gnueabi-gcc"
+
+Deux variables d'environnement utiles sont à utiliser pour spécifier la chaine et la rendre visible par
+le système à chaque démarrage: CROSS_COMPILE et ARM. Pour cela, il suffit d'ouvrir le fichier bashrc et
+d'y insérer ces deux variables:
+"export ARCH = arm"
+"export CROSS_COMPILE = arm-linux-gnueabi-"
+
+Pour vérifier maintenant qu'on arrive à accéder au cross compilateur à partir du bureau, il faut taper
+"arm" puis sur deux fois "tab".
+
+Pour configurer et faire appel au cross compilateur, la variable d'environnement CROSS_COMPILE doit
+être intégrer dans le Makefile en ajoutant $(CROSS_COMPILE) à coté de $(CC). Pour cross compiler désormais
+un noyau linux, il suffit d'utiliser la commande "make" => "make ARCH = ARM" et "make CROSS_COMPILE = 
+arm-linux-gnueabi"
+
+Après exécution du binaire sur le PC, on remarque qu'il ne marche pas car il est destiné à être exécuté
+sur une autre machine (carte). C'est un binaire ARM.
